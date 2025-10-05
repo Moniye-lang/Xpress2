@@ -32,5 +32,9 @@ app.post("/send-email", async (req, res) => {
     res.json({ success: false, msg: error.message });
   }
 });
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running fine!");
+});
+
 
 app.listen(5000, () => console.log("✅ Server running on port 5000"));
