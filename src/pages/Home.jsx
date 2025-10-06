@@ -39,7 +39,7 @@ export default function Home() {
 
           <div className=" flex flex-col items-center">
             <motion.span
-              className="text-[110px] lg:text-[200px] md:text-8xl lg:text-9xl font-extrabold text-red-700 drop-shadow-xl"
+              className="text-[100px] lg:text-[200px] md:text-8xl lg:text-9xl font-extrabold text-red-700 drop-shadow-xl"
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
