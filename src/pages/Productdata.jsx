@@ -59,7 +59,7 @@ export const data = [
         id: 9,
         img: "/Hose.JPG",
         Pname: "Hose",
-        Price: "₦800",
+        Price: "₦800(per yard)",
         Pdetails: "",
         Category: "Accessories"
     },

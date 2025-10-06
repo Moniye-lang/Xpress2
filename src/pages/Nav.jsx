@@ -37,7 +37,7 @@ export default function Nav() {
         <Link to="/" className="flex items-center gap-2">
           <img
             src="/xpresslogo.jpg"
-            className="h-[60px] w-[80px] rounded-[50px]"
+            className="h-[70px] w-[90px] rounded-[50px]"
             alt="Xpress Logo"
           />
           <span className="text-2xl font-bold hidden sm:inline">Xpress</span>

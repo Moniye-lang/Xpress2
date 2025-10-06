@@ -74,7 +74,7 @@ export default function Home() {
           {[
             {
               title: "Bulk Supply",
-              text: "We deliver quality Liquified Petroleum Gas in bulk at reasonable prices throughout SouthWest Nigeria.",
+              text: "We deliver Liquified Petroleum Gas in bulk at reasonable prices throughout SouthWest Nigeria.",
             },
             {
               title: "Accessories",

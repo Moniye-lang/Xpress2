@@ -41,7 +41,7 @@ export default function About() {
               About <span className="text-green-700">Xpress</span> Cooking Gas
             </h1>
             <p className="mt-6 text-lg text-gray-600 max-w-xl">
-              Established in 2017 and based in Ibadan, Oyo State, Xpress Cooking Gas
+              Established in 2016 and based in Ibadan, Oyo State, Xpress Cooking Gas
               is dedicated to delivering safe and reliable Liquefied Petroleum Gas
               solutions for households and businesses. We combine quality products,
               timely logistics and best-in-class customer support.
@@ -93,17 +93,17 @@ export default function About() {
               we offer logistics, consultancy and accessories to match every need.
             </p>
 
-            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <li className="flex items-start gap-4 bg-white border rounded-lg p-4 shadow-sm">
+            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
                 <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
                   1
                 </div>
                 <div>
                   <div className="font-semibold text-gray-800">LPG Supply & Distribution</div>
-                  <div className="text-gray-500 text-sm">High-quality gas with safe handling and fast delivery.</div>
+                  <div className="text-gray-500 text-sm">Gas with safe handling and fast delivery.</div>
                 </div>
               </li>
-              <li className="flex items-start gap-4 bg-white border rounded-lg p-4 shadow-sm">
+              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
                 <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
                   2
                 </div>
@@ -112,7 +112,7 @@ export default function About() {
                   <div className="text-gray-500 text-sm">Trusted refill procedures and safety checks.</div>
                 </div>
               </li>
-              <li className="flex items-start gap-4 bg-white border rounded-lg p-4 shadow-sm">
+              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
                 <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
                   3
                 </div>
@@ -121,7 +121,7 @@ export default function About() {
                   <div className="text-gray-500 text-sm">Competitive rates for retailers and institutions.</div>
                 </div>
               </li>
-              <li className="flex items-start gap-4 bg-white border rounded-lg p-4 shadow-sm">
+              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
                 <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
                   4
                 </div>
@@ -134,7 +134,7 @@ export default function About() {
           </div>
 
           <div data-reveal className="grid grid-cols-1 gap-6">
-            <div className="bg-gradient-to-tr from-white to-green-50 border rounded-2xl p-6 shadow-sm">
+            <div className="bg-gradient-to-tr from-white to-green-50 border border-gray-400 rounded-2xl p-6 shadow-sm">
               <h3 className="text-xl font-semibold text-gray-900">Why choose Xpress</h3>
               <p className="text-gray-600 mt-3">
                 Safety-first processes, reliable logistics, and a customer-focused approach make us a top choice for both household and bulk customers.
@@ -155,13 +155,14 @@ export default function About() {
               </div>
             </div>
 
-            <div className="bg-white border rounded-2xl p-6 shadow-sm">
+            <div className="bg-white border border-gray-400 rounded-2xl p-6 shadow-sm">
               <h4 className="font-semibold text-gray-900">Service Areas</h4>
               <p className="text-gray-600 mt-2">We currently deliver across the SouthWest region with plans to expand.</p>
 
               <div className="mt-4 flex flex-wrap gap-3">
                 <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Ibadan</span>
                 <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Lagos</span>
+                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Abeokuta</span>
                 <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Oyo State</span>
               </div>
             </div>
@@ -179,7 +180,7 @@ export default function About() {
               <article
                 key={i}
                 data-reveal
-                className="bg-white rounded-xl p-6 shadow-sm border transform transition hover:shadow-lg"
+                className="bg-white rounded-xl p-6 shadow-sm border border-gray-500 transform transition hover:shadow-lg"
               >
                 <p className="text-gray-700 mb-4">“{t.text}”</p>
                 <div className="text-sm font-semibold text-green-700">{t.name}</div>
