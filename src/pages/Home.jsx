@@ -39,7 +39,7 @@ export default function Home() {
 
           <div className=" flex flex-col items-center">
             <motion.span
-              className="text-[100px] lg:text-[200px] md:text-8xl lg:text-9xl font-extrabold text-red-700 drop-shadow-xl"
+              className="text-[90px] lg:text-[200px] md:text-8xl lg:text-9xl font-extrabold text-red-700 drop-shadow-xl"
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
@@ -47,7 +47,7 @@ export default function Home() {
               Xpress
             </motion.span>
             <motion.span
-              className="text-[60px] md:text-5xl lg:text-[80px] lg:ml-[240px] lg:mb-[100px] font-bold text-blue-800 drop-shadow-md mt-2"
+              className="text-[55px] md:text-5xl lg:text-[80px] lg:ml-[240px] lg:mb-[100px] font-bold text-blue-800 drop-shadow-md mt-2"
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
