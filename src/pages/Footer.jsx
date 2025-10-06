@@ -25,7 +25,7 @@ export default function Footer() {
           </div>
           <p className="text-gray-300 leading-relaxed">
             Your trusted partner in safe, reliable, and affordable cooking gas
-            solutions across Nigeria.
+            solutions across SouthWest,Nigeria.
           </p>
           <div className="flex gap-4 mt-2">
             <a href="#" className="hover:text-gray-300">
@@ -63,7 +63,7 @@ export default function Footer() {
               <MapPin size={18} /> Ibadan, Oyo State, Nigeria
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={18} /> +234 800 123 4567
+              <Phone size={18} /> 09086510324,08161602300,08119998995
             </li>
             <li className="flex items-center gap-2">
               <Mail size={18} /> support@xpressgas.com
