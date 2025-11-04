@@ -160,7 +160,7 @@ export default function About() {
               <p className="text-gray-600 mt-2">We currently deliver across the SouthWest region with plans to expand.</p>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Ibadan</span>
+                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Ogun State</span>
                 <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Lagos</span>
                 <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Abeokuta</span>
                 <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Oyo State</span>

@@ -142,9 +142,7 @@ export default function Home() {
               />
               <div className="text-center">
                 <div className="text-[26px] font-bold text-gray-800">{p.name}</div>
-                <div className="text-green-700 text-[27px] font-extrabold mt-3">
-                  {p.price}
-                </div>
+                
               </div>
             </motion.div>
           ))}
