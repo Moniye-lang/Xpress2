@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 export default function Contact() {
@@ -8,43 +8,51 @@ export default function Contact() {
     subject: "",
     message: "",
   });
-
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(""); // success/error message
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // Input change handler
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // Submit handler
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      setStatus("");
 
-    try {
-      const res = await fetch("https://xpress2-1.onrender.com/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      try {
+        const res = await fetch("https://xpress2-1.onrender.com/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      if (data.success) {
-        alert("Message sent ✅");
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      } else {
-        alert("Failed ❌ " + data.msg);
+        if (data.success) {
+          setStatus("Message sent ✅");
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        } else {
+          setStatus("Failed ❌: " + data.msg);
+        }
+      } catch (err) {
+        setStatus("An error occurred ❌: " + err.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      alert("An error occurred ❌ " + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [formData]
+  );
 
+  // Animation variant
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: (delay = 0) => ({
@@ -58,10 +66,10 @@ export default function Contact() {
     "border border-gray-400 w-full p-3 rounded-3xl focus:outline-none focus:ring-2 focus:ring-green-700 transition";
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
+    <main className="min-h-screen bg-gray-100 flex flex-col items-center py-20">
       {/* Title */}
       <motion.h1
-        className="text-[50px] md:text-[70px] text-green-900 font-bold text-center mb-8"
+        className="text-[50px] md:text-[70px] text-green-900 font-bold text-center mb-6 md:mb-10"
         initial="hidden"
         whileInView="visible"
         variants={fadeInUp}
@@ -69,6 +77,19 @@ export default function Contact() {
       >
         Contact Us
       </motion.h1>
+
+      {/* Feedback Message */}
+      {status && (
+        <motion.div
+          className={`mb-6 px-6 py-3 rounded-xl text-center font-medium ${
+            status.includes("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+          }`}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {status}
+        </motion.div>
+      )}
 
       {/* Form */}
       <motion.form
@@ -79,15 +100,13 @@ export default function Contact() {
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        {/* Name & Email */}
-        <motion.div
-          className="flex flex-col md:flex-row gap-4"
-          variants={fadeInUp}
-          custom={0.2}
-        >
+        <fieldset className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 flex flex-col gap-2">
-            <label className="font-medium text-gray-800">Name</label>
+            <label htmlFor="name" className="font-medium text-gray-800">
+              Name
+            </label>
             <input
+              id="name"
               type="text"
               name="name"
               placeholder="Enter your name"
@@ -98,8 +117,11 @@ export default function Contact() {
             />
           </div>
           <div className="flex-1 flex flex-col gap-2">
-            <label className="font-medium text-gray-800">Email</label>
+            <label htmlFor="email" className="font-medium text-gray-800">
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               name="email"
               placeholder="Enter your email"
@@ -109,16 +131,15 @@ export default function Contact() {
               required
             />
           </div>
-        </motion.div>
+        </fieldset>
 
         {/* Subject */}
-        <motion.div
-          className="flex flex-col gap-2"
-          variants={fadeInUp}
-          custom={0.3}
-        >
-          <label className="font-medium text-gray-800">Subject</label>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="subject" className="font-medium text-gray-800">
+            Subject
+          </label>
           <input
+            id="subject"
             type="text"
             name="subject"
             placeholder="Write a subject"
@@ -126,40 +147,64 @@ export default function Contact() {
             onChange={handleChange}
             className={inputClasses}
           />
-        </motion.div>
+        </div>
 
         {/* Message */}
-        <motion.div
-          className="flex flex-col gap-2"
-          variants={fadeInUp}
-          custom={0.4}
-        >
-          <label className="font-medium text-gray-800">Message</label>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="message" className="font-medium text-gray-800">
+            Message
+          </label>
           <textarea
+            id="message"
             name="message"
             placeholder="Write your message"
             value={formData.message}
             onChange={handleChange}
-            className={inputClasses + " h-36 resize-none"}
+            className={`${inputClasses} h-36 resize-none`}
             required
           />
-        </motion.div>
+        </div>
 
-        {/* Button */}
-        <motion.button
+        {/* Submit Button */}
+        <button
           type="submit"
           disabled={loading}
-          variants={fadeInUp}
-          custom={0.5}
-          className={`w-full mt-4 p-3 rounded-3xl font-medium text-white transition ${
+          className={`w-full mt-4 p-3 rounded-3xl font-medium text-white transition flex justify-center items-center gap-2 ${
             loading
               ? "bg-green-400 cursor-not-allowed"
               : "bg-green-900 hover:bg-green-800"
           }`}
+          aria-busy={loading}
         >
-          {loading ? "Sending..." : "Send"}
-        </motion.button>
+          {loading ? (
+            <>
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+                />
+              </svg>
+              Sending...
+            </>
+          ) : (
+            "Send"
+          )}
+        </button>
       </motion.form>
-    </div>
+    </main>
   );
 }

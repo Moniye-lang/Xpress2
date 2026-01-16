@@ -5,7 +5,7 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
 export default function Footer() {
   return (
     <motion.footer
-      className="bg-green-900 text-white py-10 mt-20"
+      className="bg-green-900 text-white py-10 mt-"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

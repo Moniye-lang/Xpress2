@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useReveal from '../useReveal';
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -10,6 +9,26 @@ export default function About() {
   useEffect(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, []);
+    useEffect(() => {
+  const elements = document.querySelectorAll("[data-reveal]");
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  elements.forEach(el => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
+
 
   const testimonials = [
     {
@@ -36,7 +55,7 @@ export default function About() {
         style={{ background: "linear-gradient(180deg,#f8faf8,transparent)" }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28 flex flex-col lg:flex-row items-center gap-12">
-          <div data-reveal className="w-full lg:w-1/2">
+          <div data-reveal className="w-full lg:w-1/2 opacity-0 translate-y-6 transition-all duration-700 ease-out">
             <h1 className="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
               About <span className="text-green-700">Xpress</span> Cooking Gas
             </h1>
@@ -72,7 +91,7 @@ export default function About() {
               <img
                 src="/CXRH8720.JPG"
                 alt="Xpress Cooking Gas"
-                className="w-[340px] h-[300px] object-cover rounded-xl"
+                className="w-[340px] h-[300px] lg:h-[400px] lg:w-[400px] object-cover rounded-xl"
                 loading="lazy"
               />
             </div>
@@ -146,7 +165,7 @@ export default function About() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-700">5k+</div>
-                  <div className="text-sm text-gray-500">Customers</div>
+                  <div className="text-sm text-gray-500">Customers Served</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-700">Bulk</div>
@@ -180,7 +199,8 @@ export default function About() {
               <article
                 key={i}
                 data-reveal
-                className="bg-white rounded-xl p-6 shadow-sm border border-gray-500 transform transition hover:shadow-lg"
+                className="bg-white rounded-xl p-6 shadow-sm border border-gray-500
+             opacity-0 translate-y-6 transition-all duration-700 ease-out hover:shadow-lg "
               >
                 <p className="text-gray-700 mb-4">“{t.text}”</p>
                 <div className="text-sm font-semibold text-green-700">{t.name}</div>
@@ -206,18 +226,7 @@ export default function About() {
       </section>
 
       {/* Inline CSS for reveal transitions (Tailwind + small custom classes) */}
-      <style>{`
-        [data-reveal] {
-          transform: translateY(16px);
-          opacity: 0;
-          transition: opacity 620ms cubic-bezier(.2,.9,.2,1), transform 620ms cubic-bezier(.2,.9,.2,1);
-          will-change: transform, opacity;
-        }
-        [data-reveal].is-revealed {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      `}</style>
+    
     </div>
   );
 }
