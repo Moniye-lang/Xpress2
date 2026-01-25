@@ -1,210 +1,151 @@
 import { useEffect, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Phone, Mail, MapPin, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", honeypot: "" });
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(""); // success/error message
+  const [status, setStatus] = useState(null); // { type: 'success' | 'error', msg: string }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Input change handler
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  // Submit handler
-  const handleSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-      setLoading(true);
-      setStatus("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.honeypot) return; // Simple bot trap
 
-      try {
-        const res = await fetch("https://xpress2-1.onrender.com/send-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+    setLoading(true);
+    setStatus(null);
 
-        const data = await res.json();
+    try {
+      const res = await fetch("https://xpress2-1.onrender.com/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-        if (data.success) {
-          setStatus("Message sent ✅");
-          setFormData({ name: "", email: "", subject: "", message: "" });
-        } else {
-          setStatus("Failed ❌: " + data.msg);
-        }
-      } catch (err) {
-        setStatus("An error occurred ❌: " + err.message);
-      } finally {
-        setLoading(false);
+      const data = await res.json();
+      if (data.success) {
+        setStatus({ type: "success", msg: "Message sent! We'll be in touch shortly." });
+        setFormData({ name: "", email: "", subject: "", message: "", honeypot: "" });
+      } else {
+        throw new Error(data.msg || "Server rejected the request");
       }
-    },
-    [formData]
-  );
-
-  // Animation variant
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (delay = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay, duration: 0.7, ease: "easeOut" },
-    }),
+    } catch (err) {
+      setStatus({ type: "error", msg: err.message || "Connection failed. Please try again." });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const inputClasses =
-    "border border-gray-400 w-full p-3 rounded-3xl focus:outline-none focus:ring-2 focus:ring-green-700 transition";
-
   return (
-    <main className="min-h-screen bg-gray-100 flex flex-col items-center py-20">
-      {/* Title */}
-      <motion.h1
-        className="text-[50px] md:text-[70px] text-green-900 font-bold text-center mb-6 md:mb-10"
-        initial="hidden"
-        whileInView="visible"
-        variants={fadeInUp}
-        viewport={{ once: true }}
-      >
-        Contact Us
-      </motion.h1>
-
-      {/* Feedback Message */}
-      {status && (
-        <motion.div
-          className={`mb-6 px-6 py-3 rounded-xl text-center font-medium ${
-            status.includes("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-          }`}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+    <main className="min-h-screen bg-slate-50 pt-32 pb-20 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
+        
+        {/* 1. LEFT SIDE: CONTACT INFO */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="lg:w-1/3 space-y-12"
         >
-          {status}
+          <div>
+            <h1 className="text-5xl font-black text-green-950 mb-4 tracking-tighter uppercase">Get in <br/><span className="text-green-600">Touch</span></h1>
+            <p className="text-slate-600 font-medium text-lg">Have questions about bulk delivery or plant installation? Our team is ready to help.</p>
+          </div>
+
+          <div className="space-y-6">
+            <ContactMethod icon={<Phone className="text-green-600"/>} title="Phone" detail="+234 (0) 800 XPRESS" />
+            <ContactMethod icon={<Mail className="text-green-600"/>} title="Email" detail="info@xpressgas.com.ng" />
+            <ContactMethod icon={<MapPin className="text-green-600"/>} title="Location" detail="Ibadan, Oyo State, Nigeria" />
+          </div>
         </motion.div>
-      )}
 
-      {/* Form */}
-      <motion.form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-2xl w-[90%] max-w-[700px] rounded-3xl p-6 flex flex-col gap-4"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-      >
-        <fieldset className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1 flex flex-col gap-2">
-            <label htmlFor="name" className="font-medium text-gray-800">
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleChange}
-              className={inputClasses}
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col gap-2">
-            <label htmlFor="email" className="font-medium text-gray-800">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className={inputClasses}
-              required
-            />
-          </div>
-        </fieldset>
-
-        {/* Subject */}
-        <div className="flex flex-col gap-2">
-          <label htmlFor="subject" className="font-medium text-gray-800">
-            Subject
-          </label>
-          <input
-            id="subject"
-            type="text"
-            name="subject"
-            placeholder="Write a subject"
-            value={formData.subject}
-            onChange={handleChange}
-            className={inputClasses}
-          />
-        </div>
-
-        {/* Message */}
-        <div className="flex flex-col gap-2">
-          <label htmlFor="message" className="font-medium text-gray-800">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Write your message"
-            value={formData.message}
-            onChange={handleChange}
-            className={`${inputClasses} h-36 resize-none`}
-            required
-          />
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full mt-4 p-3 rounded-3xl font-medium text-white transition flex justify-center items-center gap-2 ${
-            loading
-              ? "bg-green-400 cursor-not-allowed"
-              : "bg-green-900 hover:bg-green-800"
-          }`}
-          aria-busy={loading}
+        {/* 2. RIGHT SIDE: THE FORM CARD */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="lg:w-2/3 bg-white rounded-[2.5rem] shadow-2xl shadow-green-900/5 p-8 md:p-12 relative overflow-hidden"
         >
-          {loading ? (
-            <>
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
+          {/* Status Overlay */}
+          <AnimatePresence>
+            {status && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
+                className={`flex items-center gap-3 p-4 rounded-2xl mb-8 ${
+                  status.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'
+                }`}
               >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
-                />
-              </svg>
-              Sending...
-            </>
-          ) : (
-            "Send"
-          )}
-        </button>
-      </motion.form>
+                {status.type === 'success' ? <CheckCircle2 size={20}/> : <AlertCircle size={20}/>}
+                <span className="font-bold">{status.msg}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Honeypot field - Invisible to humans */}
+            <input type="text" name="honeypot" className="hidden" value={formData.honeypot} onChange={handleChange} />
+
+            <div className="space-y-2">
+              <label className="text-sm font-black uppercase text-slate-500 ml-2">Your Name</label>
+              <input required name="name" value={formData.name} onChange={handleChange} className={inputStyle} placeholder="John Doe" />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-black uppercase text-slate-500 ml-2">Email Address</label>
+              <input required type="email" name="email" value={formData.email} onChange={handleChange} className={inputStyle} placeholder="john@example.com" />
+            </div>
+
+            <div className="md:col-span-2 space-y-2">
+              <label className="text-sm font-black uppercase text-slate-500 ml-2">Subject</label>
+              <input name="subject" value={formData.subject} onChange={handleChange} className={inputStyle} placeholder="Bulk Delivery Inquiry" />
+            </div>
+
+            <div className="md:col-span-2 space-y-2">
+              <label className="text-sm font-black uppercase text-slate-500 ml-2">Message</label>
+              <textarea required name="message" value={formData.message} onChange={handleChange} className={`${inputStyle} h-40 resize-none`} placeholder="How can we help you?" />
+            </div>
+
+            <div className="md:col-span-2 pt-4">
+              <button
+                disabled={loading}
+                className="w-full bg-green-700 hover:bg-green-800 text-white py-5 rounded-2xl font-black text-lg transition-all transform active:scale-[0.98] shadow-xl shadow-green-700/20 disabled:bg-slate-300 flex justify-center items-center gap-3"
+              >
+                {loading ? <Spinner /> : <><Send size={20} /> Send Message</>}
+              </button>
+            </div>
+          </form>
+        </motion.div>
+      </div>
     </main>
+  );
+}
+
+// Reusable Components for clean JSX
+const inputStyle = "w-full bg-slate-50 border-2 border-transparent focus:border-green-600 focus:bg-white p-4 rounded-2xl outline-none transition-all font-medium text-slate-900";
+
+function ContactMethod({ icon, title, detail }) {
+  return (
+    <div className="flex gap-4 items-start">
+      <div className="p-3 bg-white rounded-xl shadow-sm border border-slate-100">{icon}</div>
+      <div>
+        <h4 className="font-bold text-slate-900">{title}</h4>
+        <p className="text-slate-500 font-medium">{detail}</p>
+      </div>
+    </div>
+  );
+}
+
+function Spinner() {
+  return (
+    <motion.div 
+      animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+      className="h-6 w-6 border-4 border-white border-t-transparent rounded-full"
+    />
   );
 }

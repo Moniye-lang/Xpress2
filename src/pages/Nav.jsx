@@ -1,143 +1,162 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback, createContext, useContext } from "react";
+import { createPortal } from "react-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import FocusLock from "react-focus-lock";
+
+// 1. Context for Compound Component State
+const NavContext = createContext(null);
+const useNav = () => useContext(NavContext);
+
+const NAV_LINKS = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/About" },
+  { name: "Product", path: "/Product" },
+  { name: "Contact Us", path: "/Contact" },
+];
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/About" },
-    { name: "Product", path: "/Product" },
-    { name: "Contact Us", path: "/Contact" },
-  ];
+  const toggle = useCallback(() => setIsOpen(v => !v), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
-  // 🔒 Lock background scroll
+  // Sync scroll lock with state
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => (document.body.style.overflow = "");
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  const sidebarVariants = {
-    hidden: { x: "100%" },
-    visible: {
-      x: 0,
-      transition: { duration: 0.35, ease: "easeOut" },
-    },
-    exit: {
-      x: "100%",
-      transition: { duration: 0.25, ease: "easeIn" },
-    },
-  };
+  // Close on route change
+  useEffect(() => { close(); }, [pathname, close]);
 
   return (
-    <>
-      {/* NAVBAR */}
-      <motion.nav
-        className={`bg-green-800 text-white p-4 shadow-md sticky top-0 z-50 transition-all duration-300
-        ${isOpen ? "blur-sm pointer-events-none select-none" : ""}`}
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              src="/xpresslogo.jpg"
-              className="h-[80px] w-[100px] rounded-[50px]"
-              alt="Xpress Logo"
-            />
-            <span className="text-2xl font-bold hidden sm:inline">Xpress</span>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8 font-medium">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative transition-all duration-300 hover:text-gray-300 ${
-                  location.pathname === link.path
-                    ? "after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-white"
-                    : ""
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsOpen(true)}
-            aria-label="Open Menu"
-          >
-            <Menu size={28} />
-          </button>
+    <NavContext.Provider value={{ isOpen, toggle, close }}>
+      <header className="sticky top-0 z-40 w-full bg-green-800 text-white shadow-md">
+        <div className="max-w-7xl mx-auto flex h-20 items-center justify-between px-4 sm:px-6">
+          <Brand />
+          <DesktopLinks />
+          <MobileToggle />
         </div>
-      </motion.nav>
+      </header>
+      
+      <MobileSidebar />
+    </NavContext.Provider>
+  );
+}
 
-      {/* OVERLAY */}
-      <AnimatePresence>
-        {isOpen && (
+// --- Sub-Components (Compound Pattern) ---
+
+function Brand() {
+  return (
+    <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-90 focus-visible:outline-2 outline-offset-4 outline-white rounded-md">
+      <img 
+        src="/xpresslogo.jpg" 
+        className="h-12 w-12 rounded-full object-cover border-2 border-green-700" 
+        alt="Xpress - Back to Home" 
+      />
+      <span className="text-2xl font-black tracking-tight hidden sm:inline">XPRESS</span>
+    </Link>
+  );
+}
+
+function DesktopLinks() {
+  return (
+    <nav className="hidden md:flex items-center gap-1 font-medium">
+      {NAV_LINKS.map(({ name, path }) => (
+        <NavLink
+          key={path}
+          to={path}
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-md transition-all duration-200 hover:bg-white/10 ${
+              isActive ? "text-white font-bold" : "text-green-100/80"
+            }`
+          }
+        >
+          {name}
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
+
+function MobileToggle() {
+  const { isOpen, toggle } = useNav();
+  return (
+    <button
+      onClick={toggle}
+      className="md:hidden p-2 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors"
+      aria-expanded={isOpen}
+      aria-controls="mobile-menu"
+      aria-label={isOpen ? "Close menu" : "Open menu"}
+    >
+      {isOpen ? <X size={30} /> : <Menu size={30} />}
+    </button>
+  );
+}
+
+function MobileSidebar() {
+  const { isOpen, close } = useNav();
+
+  // 2. React Portal: Renders the menu at the end of <body> to avoid CSS conflicts
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/40 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={close}
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+            aria-hidden="true"
           />
-        )}
-      </AnimatePresence>
 
-      {/* SIDEBAR */}
-      <AnimatePresence>
-        {isOpen && (
+          {/* Drawer with Focus Lock */}
           <motion.aside
-            variants={sidebarVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed top-0 right-0 h-full w-[280px] bg-green-800 text-white z-50 shadow-xl"
+            id="mobile-menu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed right-0 top-0 z-[101] h-full w-[min(85vw,400px)] bg-green-900 shadow-2xl"
           >
-            {/* Header */}
-            <div className="h-[80px] flex items-center justify-between px-5 border-b border-white/20">
-              <div className="flex items-center gap-2">
-                <img
-                  src="/xpresslogo.jpg"
-                  className="h-[40px] w-[40px] rounded-full"
-                  alt="Xpress Logo"
-                />
-                <span className="font-semibold text-lg">Xpress</span>
+            <FocusLock returnFocus={true}>
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                  <span className="font-bold text-xl text-[#fff] uppercase tracking-widest">Menu</span>
+                  <button onClick={close} className="p-2" aria-label="Close menu">
+                    <X className="text-[#fff]" size={28} />
+                  </button>
+                </div>
+
+                <nav className="flex flex-col p-6 space-y-2">
+                  {NAV_LINKS.map(({ name, path }) => (
+                    <NavLink
+                      key={path}
+                      to={path}
+                      onClick={close}
+                      className={({ isActive }) =>
+                        `flex items-center p-4 text-lg rounded-xl transition-all ${
+                          isActive ? "bg-white/10 text-white font-bold" : "text-green-100/70 hover:bg-white/5"
+                        }`
+                      }
+                    >
+                      {name}
+                    </NavLink>
+                  ))}
+                </nav>
               </div>
-
-              <button onClick={() => setIsOpen(false)}>
-                <X size={28} />
-              </button>
-            </div>
-
-            {/* Links */}
-            <nav className="flex flex-col gap-6 px-6 mt-8 text-lg">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`transition hover:text-gray-300 ${
-                    location.pathname === link.path ? "font-bold" : ""
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
+            </FocusLock>
           </motion.aside>
-        )}
-      </AnimatePresence>
-    </>
+        </>
+      )}
+    </AnimatePresence>,
+    document.body
   );
 }

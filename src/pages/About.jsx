@@ -1,232 +1,159 @@
-import React, { useEffect } from "react";
-import useReveal from '../useReveal';
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ShieldCheck, Truck, Zap, Headphones, MapPin, Award } from "lucide-react";
 
+// 1. Decoupled Data
+const SERVICES = [
+  { id: 1, icon: <ShieldCheck />, title: "LPG Supply", desc: "Safe handling and certified quality gas." },
+  { id: 2, icon: <Zap />, title: "Cylinder Refilling", desc: "Precision filling with rigorous safety checks." },
+  { id: 3, icon: <Truck />, title: "Bulk Delivery", desc: "Optimized logistics for industrial partners." },
+  { id: 4, icon: <Headphones />, title: "Consultancy", desc: "Expert planning for gas plant installations." },
+];
 
+const STATS = [
+  { label: "Years Experience", value: "8+", icon: <Award className="text-green-600" /> },
+  { label: "Happy Customers", value: "5k+", icon: <ShieldCheck className="text-green-600" /> },
+  { label: "Regions Covered", value: "SouthWest", icon: <MapPin className="text-green-600" /> },
+];
+
+// 2. Motion Variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+};
 
 export default function About() {
-  useReveal();
   useEffect(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
-    useEffect(() => {
-  const elements = document.querySelectorAll("[data-reveal]");
-
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  elements.forEach(el => observer.observe(el));
-
-  return () => observer.disconnect();
-}, []);
-
-
-  const testimonials = [
-    {
-      name: "Bamidele Adejumo",
-      text:
-        "Xpress Cooking Gas is a very credible and reliable company — excellent customer service and consistent delivery. Good job team.",
-    },
-    {
-      name: "Ade Adeniyi",
-      text:
-        "A one-stop gas station with all accessories you’ll ever need. Excellent service anytime.",
-    },
-    {
-      name: "Ahmed Sarafa",
-      text: "Best and most affordable place for gas refills in the area.",
-    },
-  ];
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
-    <div className="bg-white text-gray-800">
-      {/* Hero */}
-      <header
-        className="relative overflow-hidden"
-        style={{ background: "linear-gradient(180deg,#f8faf8,transparent)" }}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28 flex flex-col lg:flex-row items-center gap-12">
-          <div data-reveal className="w-full lg:w-1/2 opacity-0 translate-y-6 transition-all duration-700 ease-out">
-            <h1 className="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
-              About <span className="text-green-700">Xpress</span> Cooking Gas
-            </h1>
-            <p className="mt-6 text-lg text-gray-600 max-w-xl">
-              Established in 2016 and based in Ibadan, Oyo State, Xpress Cooking Gas
-              is dedicated to delivering safe and reliable Liquefied Petroleum Gas
-              solutions for households and businesses. We combine quality products,
-              timely logistics and best-in-class customer support.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#services"
-                className="inline-block px-6 py-3 bg-green-700 text-white rounded-full shadow hover:shadow-lg transition"
-              >
+    <div className="bg-white text-gray-900 selection:bg-green-100">
+      {/* HERO SECTION */}
+      <section className="relative pt-20 pb-32 overflow-hidden bg-gradient-to-b from-green-50/50 to-white">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+          <motion.div 
+            initial="hidden" animate="visible" variants={staggerContainer}
+            className="w-full lg:w-1/2 space-y-8"
+          >
+            <motion.div variants={fadeUp} className="inline-block px-4 py-1.5 bg-green-100 text-green-800 rounded-full text-sm font-bold tracking-wide uppercase">
+              Est. 2016
+            </motion.div>
+            <motion.h1 variants={fadeUp} className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tight">
+              Fueling Homes with <span className="text-green-700">Precision.</span>
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-xl text-gray-600 leading-relaxed max-w-lg">
+              Based in Ibadan, Xpress Cooking Gas is redefining energy reliability. We don't just deliver gas; we deliver safety, convenience, and peace of mind.
+            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+              <Link to="/contact" className="px-8 py-4 bg-green-700 text-white rounded-2xl font-bold shadow-lg shadow-green-200 hover:bg-green-800 transition-all active:scale-95">
+                Work with Us
+              </Link>
+              <a href="#services" className="px-8 py-4 border-2 border-gray-200 text-gray-700 rounded-2xl font-bold hover:bg-gray-50 transition-all">
                 Our Services
               </a>
-              <a
-                href="#contact"
-                className="inline-block px-6 py-3 border border-green-200 text-green-800 rounded-full hover:bg-green-50 transition"
-              >
-                Contact Us
-              </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div
-            data-reveal
-            className="w-full lg:w-1/2 flex justify-center lg:justify-end"
-            style={{ perspective: 1000 }}
+          {/* Hero Image with Floating Elements */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full lg:w-1/2 relative"
           >
-            <div className="bg-white shadow-xl rounded-2xl p-4 transform transition-all">
-              <img
-                src="/CXRH8720.JPG"
-                alt="Xpress Cooking Gas"
-                className="w-[340px] h-[300px] lg:h-[400px] lg:w-[400px] object-cover rounded-xl"
-                loading="lazy"
-              />
+            <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
+              <img src="/CXRH8720.JPG" alt="Xpress Team" className="w-full aspect-square object-cover" />
             </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Services */}
-      <section id="services" className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div data-reveal className="space-y-6">
-            <h2 className="text-3xl font-semibold text-gray-900">
-              What we do — reliable LPG supply & more
-            </h2>
-            <p className="text-gray-600">
-              We cater to households, retail sellers and commercial clients. From
-              safe cylinder refills to large bulk deliveries across the SouthWest,
-              we offer logistics, consultancy and accessories to match every need.
-            </p>
-
-            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 ">
-              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
-                <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
-                  1
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-800">LPG Supply & Distribution</div>
-                  <div className="text-gray-500 text-sm">Gas with safe handling and fast delivery.</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
-                <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
-                  2
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-800">Cylinder Refilling</div>
-                  <div className="text-gray-500 text-sm">Trusted refill procedures and safety checks.</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
-                <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
-                  3
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-800">Bulk Delivery</div>
-                  <div className="text-gray-500 text-sm">Competitive rates for retailers and institutions.</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-4 bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
-                <div className="flex-none w-10 h-10 rounded-full bg-green-50 text-green-700 grid place-items-center font-semibold">
-                  4
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-800">Accessories & Consultancy</div>
-                  <div className="text-gray-500 text-sm">Regulators, connectors and installation planning.</div>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div data-reveal className="grid grid-cols-1 gap-6">
-            <div className="bg-gradient-to-tr from-white to-green-50 border border-gray-400 rounded-2xl p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900">Why choose Xpress</h3>
-              <p className="text-gray-600 mt-3">
-                Safety-first processes, reliable logistics, and a customer-focused approach make us a top choice for both household and bulk customers.
-              </p>
-              <div className="mt-6 grid grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-700">8+</div>
-                  <div className="text-sm text-gray-500">Years</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-700">5k+</div>
-                  <div className="text-sm text-gray-500">Customers Served</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-700">Bulk</div>
-                  <div className="text-sm text-gray-500">Supply</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white border border-gray-400 rounded-2xl p-6 shadow-sm">
-              <h4 className="font-semibold text-gray-900">Service Areas</h4>
-              <p className="text-gray-600 mt-2">We currently deliver across the SouthWest region with plans to expand.</p>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Ogun State</span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Lagos</span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Abeokuta</span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-sm">Oyo State</span>
-              </div>
-            </div>
-          </div>
+            {/* Abstract background shape */}
+            <div className="absolute -top-10 -right-10 w-64 h-64 bg-green-200/50 rounded-full blur-3xl -z-0" />
+            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-blue-100 rounded-full blur-3xl -z-0" />
+          </motion.div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <h3 data-reveal className="text-3xl font-semibold text-center text-gray-900 mb-8">What customers say</h3>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <article
-                key={i}
-                data-reveal
-                className="bg-white rounded-xl p-6 shadow-sm border border-gray-500
-             opacity-0 translate-y-6 transition-all duration-700 ease-out hover:shadow-lg "
-              >
-                <p className="text-gray-700 mb-4">“{t.text}”</p>
-                <div className="text-sm font-semibold text-green-700">{t.name}</div>
-              </article>
+      {/* STATS STRIP */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-10 bg-gray-900 rounded-[2.5rem] shadow-2xl">
+            {STATS.map((stat, i) => (
+              <div key={i} className="flex items-center gap-6 md:justify-center border-r last:border-0 border-white/10">
+                <div className="p-4 bg-white/10 rounded-2xl text-white">{stat.icon}</div>
+                <div>
+                  <div className="text-3xl font-black text-white">{stat.value}</div>
+                  <div className="text-gray-400 font-medium">{stat.label}</div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="contact" className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div data-reveal className="bg-green-700 text-white rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h4 className="text-2xl font-semibold">Ready to order or partner?</h4>
-            <p className="mt-2 text-green-100">Contact our sales team for bulk pricing or book a cylinder refill.</p>
-          </div>
+      {/* CORE SERVICES */}
+      <section id="services" className="py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-20">
+            <div className="lg:w-1/3 top-32 h-fit">
+              <h2 className="text-4xl font-black text-gray-900 mb-6">Expert Solutions for Modern Energy</h2>
+              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                From high-rise residential refills to industrial logistics, our infrastructure is built to scale with your needs.
+              </p>
+              <div className="space-y-4">
+                {['Oyo State', 'Lagos', 'Ogun State'].map(area => (
+                  <div key={area} className="flex items-center gap-3 text-green-800 font-bold">
+                    <MapPin size={20} /> {area}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          <div className="flex gap-4">
-            <Link to="/contact" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow">Contact Sales</Link>
-            <Link to="/product" className="border border-white/30 px-6 py-3 rounded-full text-white">View Products</Link>
+            <div className="lg:w-2/3 grid sm:grid-cols-2 gap-6">
+              {SERVICES.map((s) => (
+                <motion.div 
+                  key={s.id}
+                  whileHover={{ y: -10 }}
+                  className="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:bg-white hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-green-700 shadow-sm mb-6 group-hover:bg-green-700 group-hover:text-white transition-colors">
+                    {s.icon}
+                  </div>
+                  <h3 className="text-xl font-black text-gray-900 mb-3">{s.title}</h3>
+                  <p className="text-gray-600 leading-relaxed font-medium">{s.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Inline CSS for reveal transitions (Tailwind + small custom classes) */}
-    
+      {/* CTA SECTION (Glassmorphism) */}
+      <section className="py-20 px-6">
+        <motion.div 
+          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          className="max-w-7xl mx-auto relative rounded-[3rem] overflow-hidden bg-green-800 p-12 text-center text-white"
+        >
+          <div className="relative z-10 space-y-6">
+            <h2 className="text-4xl md:text-5xl font-black">Ready to Partner?</h2>
+            <p className="text-green-100 text-lg max-w-2xl mx-auto">
+              Whether you need a single refill or a bulk industrial contract, Xpress is your partner in reliable energy.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 pt-6">
+              <Link to="/contact" className="px-10 py-4 bg-white text-green-800 rounded-full font-bold shadow-xl hover:bg-gray-100 transition-all">
+                Contact Sales
+              </Link>
+            </div>
+          </div>
+          {/* Abstract background circles */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
+        </motion.div>
+      </section>
     </div>
   );
 }

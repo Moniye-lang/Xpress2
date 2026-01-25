@@ -1,231 +1,204 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import { data } from "./Productdata";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, SlidersHorizontal, PackageX, ChevronLeft, ChevronRight } from "lucide-react";
+
+const CATEGORIES = ["All", "Cylinder", "Burner", "Accessories", "Cooker"];
+const ITEMS_PER_PAGE = 6;
 
 export default function Product() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  
+  // 1. URL State Management (Best for SEO & Sharing)
+  const activeCategory = searchParams.get("cat") || "All";
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
-  const productsPerPage = 6;
-
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  // Simulate loading
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 800); // 0.8s loading
+    const timer = setTimeout(() => setLoading(false), 600);
     return () => clearTimeout(timer);
-  }, []);
+  }, [activeCategory, currentPage]);
 
-  // Categories
-  const categories = ["All", "Cylinder", "Burner", "Accessories", "Cooker"];
-
-  // Filtered products
+  // 2. Optimized Filtering
   const filteredProducts = useMemo(() => {
     return data.filter((item) => {
-      const matchesCategory =
-        activeCategory === "All" || item.Category === activeCategory;
-      const matchesSearch = item.Pname.toLowerCase().includes(
-        search.toLowerCase()
-      );
+      const matchesCategory = activeCategory === "All" || item.Category === activeCategory;
+      const matchesSearch = item.Pname.toLowerCase().includes(search.toLowerCase());
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, search]);
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * productsPerPage,
-    currentPage * productsPerPage
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
   );
 
-  // Reset page if filteredProducts changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeCategory, search]);
-
-  // Animation variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, delay: i * 0.08, ease: "easeOut" },
-    }),
+  const handlePageChange = (page) => {
+    setSearchParams({ cat: activeCategory, page: page.toString() });
   };
 
-  // Format category label
-  const formatCategory = (cat) => {
-    if (cat === "Cylinder") return "Cylinders";
-    if (cat === "Burner") return "Burners";
-    return cat;
+  const handleCategoryChange = (cat) => {
+    setSearchParams({ cat, page: "1" });
   };
-  const pageLoaderVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-};
-
 
   return (
-    <section className="flex flex-col bg-gray-50 py-20 px-6 relative">
-       {/* Page Loader */}
-  <motion.div
-    variants={pageLoaderVariants}
-    initial="visible"
-    animate={loading ? "visible" : "exit"}
-    className={`absolute inset-0 z-40 flex flex-col items-center justify-center bg-gray-50 ${
-      loading ? "pointer-events-auto" : "pointer-events-none"
-    }`}
-    aria-busy={loading}
-  >
-    <motion.div
-      className="h-14 w-14 border-4 border-green-700 border-t-transparent rounded-full"
-      animate={{ rotate: 360 }}
-      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-    />
-    <p className="mt-4 text-green-900 font-semibold tracking-wide">
-      Loading products...
-    </p>
-  </motion.div> 
-      {/* Header */}
-      <header className="text-center mb-12">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-green-900">
-          Products
-        </h1>
+    <main className="min-h-screen bg-gray-50 pb-20">
+      {/* 3. Dynamic Hero Header */}
+      <section className="bg-green-900 pt-32 pb-20 px-6 text-center text-white relative overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          className="relative z-10 max-w-4xl mx-auto"
+        >
+          <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tight text-white">
+            Premium <span className="text-green-400">Gas</span> Gear
+          </h1>
+          <p className="text-green-100/80 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+            Browse our certified collection of industrial and domestic gas equipment.
+          </p>
 
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-4">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="border px-4 py-2 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-green-700"
-            aria-label="Search products"
-          />
-        </div>
+          {/* Search Bar with Icon */}
+          <div className="mt-10 relative max-w-lg mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              placeholder="Search by name..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white text-gray-900 shadow-2xl focus:ring-4 ring-green-500/30 outline-none transition-all"
+            />
+          </div>
+        </motion.div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/10 blur-[120px] rounded-full" />
+      </section>
 
-        <p className="font-medium text-2xl text-gray-700 mt-3">
-          Quality Gas Equipment & Accessories
-        </p>
-
-        <div className="mt-4 w-24 mx-auto h-1 bg-green-700 rounded-full" />
-      </header>
-
-      {/* Category Filter */}
-      <nav className="flex flex-wrap justify-center gap-4 mb-16">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`cursor-pointer px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-700 ${
-              activeCategory === cat
-                ? "bg-green-800 text-white shadow-md"
-                : "bg-white border border-green-700 text-green-800 hover:bg-green-700 hover:text-white"
-            }`}
-            aria-pressed={activeCategory === cat}
-          >
-            {formatCategory(cat)}
-          </button>
-        ))}
-      </nav>
-
-      {/* Product Grid */}
-      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {loading
-          ? Array.from({ length: productsPerPage }).map((_, i) => (
-              <div
-                key={i}
-                className="animate-pulse bg-white rounded-2xl border border-gray-200 h-[350px]"
-              >
-                <div className="h-64 bg-gray-200 rounded-t-2xl"></div>
-                <div className="p-6 flex flex-col items-center text-center">
-                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-6 bg-gray-200 rounded w-1/2 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                </div>
-              </div>
-            ))
-          : paginatedProducts.map((item, index) => (
-              <motion.article
-                key={item.id}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                custom={index}
-                className="group bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1"
-              >
-                <div className="relative w-full h-64 overflow-hidden">
-                  <a href={item.img} target="_blank" rel="noopener noreferrer">
-                    <motion.img
-                      src={item.img || "/placeholder.jpg"}
-                      alt={item.Pname}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                  </a>
-                </div>
-
-                <div className="p-6 flex flex-col items-center text-center">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                    {item.Pname}
-                  </h2>
-                  <p className="text-xl font-bold text-green-700 mt-2">
-                    {item.Price}
-                  </p>
-                  <p className="text-sm text-gray-500 mt-1">{item.Category}</p>
-                </div>
-              </motion.article>
-            ))}
-      </div>
-
-      {/* Pagination */}
-      {!loading && totalPages > 1 && (
-        <div className="flex justify-center mt-12 gap-2 flex-wrap">
-          <button
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 rounded cursor-pointer bg-green-700 text-white disabled:bg-gray-300 disabled:text-gray-500"
-          >
-            Prev
-          </button>
-
-          {Array.from({ length: totalPages }, (_, i) => (
+      {/* 4. Filters Bar */}
+      <div className="sticky top-[80px] z-30 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-4 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 text-gray-500 mr-4 shrink-0">
+            <SlidersHorizontal size={18} />
+            <span className="text-sm font-bold uppercase tracking-wider">Filter</span>
+          </div>
+          {CATEGORIES.map((cat) => (
             <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-4 py-2 rounded transition-all ${
-                currentPage === i + 1
-                  ? "bg-green-800 cursor-pointer text-white shadow-md"
-                  : "bg-white border cursor-pointer border-green-700 text-green-800 hover:bg-green-700 hover:text-white"
+              key={cat}
+              onClick={() => handleCategoryChange(cat)}
+              className={`whitespace-nowrap px-6 py-2 rounded-xl text-sm font-bold transition-all ${
+                activeCategory === cat
+                ? "bg-green-800 text-white shadow-lg shadow-green-900/20"
+                : "text-gray-600 hover:bg-gray-100"
               }`}
             >
-              {i + 1}
+              {cat === "Cylinder" ? "Cylinders" : cat === "Burner" ? "Burners" : cat}
             </button>
           ))}
-
-          <button
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 rounded  bg-green-700 text-white disabled:bg-gray-300 disabled:text-gray-500"
-          >
-            Next
-          </button>
-        </div>
-      )}
-
-      {/* Background Accent */}
-      <div className="absolute top-0 left-0 w-full h-full -z-10 opacity-[0.03] pointer-events-none">
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] bg-repeat opacity-10" />
+        </nav>
       </div>
-    </section>
+
+      {/* 5. Product Grid with Skeleton Loading */}
+      <div className="max-w-7xl mx-auto px-6 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="wait">
+            {loading ? (
+              Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => <SkeletonCard key={i} />)
+            ) : paginatedProducts.length > 0 ? (
+              paginatedProducts.map((item, index) => (
+                <ProductCard key={item.id} item={item} index={index} />
+              ))
+            ) : (
+              <NoResults />
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* 6. Professional Pagination */}
+        {!loading && totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-20">
+            <PaginationButton 
+              onClick={() => handlePageChange(currentPage - 1)} 
+              disabled={currentPage === 1}
+              icon={<ChevronLeft size={20} />}
+            />
+            <span className="text-gray-500 font-medium">
+              Page <span className="text-gray-900 font-bold">{currentPage}</span> of {totalPages}
+            </span>
+            <PaginationButton 
+              onClick={() => handlePageChange(currentPage + 1)} 
+              disabled={currentPage === totalPages}
+              icon={<ChevronRight size={20} />}
+            />
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
+
+// --- Sub-components for 10/10 Quality ---
+
+function ProductCard({ item, index }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ delay: index * 0.05 }}
+      className="group bg-white rounded-[2.5rem] border border-gray-100 p-4 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500"
+    >
+      <div className="relative aspect-square rounded-[2rem] overflow-hidden bg-gray-100">
+        <img
+          src={item.img || "/placeholder.jpg"}
+          alt={item.Pname}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          loading="lazy"
+        />
+        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-green-900 shadow-sm">
+          {item.Category}
+        </div>
+      </div>
+      <div className="p-6 text-center">
+        <h2 className="text-xl font-black text-gray-900 mb-1 group-hover:text-green-700 transition-colors">
+          {item.Pname}
+        </h2>
+        <div className="w-8 h-1 bg-green-200 mx-auto rounded-full group-hover:w-16 transition-all duration-500" />
+      </div>
+    </motion.article>
+  );
+}
+
+function SkeletonCard() {
+  return (
+    <div className="bg-white rounded-[2.5rem] border border-gray-100 p-4 animate-pulse">
+      <div className="aspect-square rounded-[2rem] bg-gray-200 mb-6" />
+      <div className="h-6 bg-gray-200 rounded-full w-3/4 mx-auto mb-3" />
+      <div className="h-4 bg-gray-100 rounded-full w-1/2 mx-auto" />
+    </div>
+  );
+}
+
+function NoResults() {
+  return (
+    <div className="col-span-full py-20 text-center">
+      <div className="inline-flex p-6 bg-gray-100 rounded-full text-gray-400 mb-4">
+        <PackageX size={48} />
+      </div>
+      <h3 className="text-2xl font-bold text-gray-900">No products found</h3>
+      <p className="text-gray-500">Try adjusting your search or filters.</p>
+    </div>
+  );
+}
+
+function PaginationButton({ onClick, disabled, icon }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="p-3 rounded-2xl bg-white border border-gray-200 text-gray-900 shadow-sm hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-90"
+    >
+      {icon}
+    </button>
   );
 }
