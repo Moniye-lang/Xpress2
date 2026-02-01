@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import Facebook from "lucide-react/dist/esm/icons/facebook";
+import Instagram from "lucide-react/dist/esm/icons/instagram";
+import Twitter from "lucide-react/dist/esm/icons/twitter";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -35,7 +40,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-3 group">
               <div className="bg-white p-1 rounded-2xl overflow-hidden shadow-xl shadow-green-900/20 group-hover:scale-110 transition-transform">
                 <img
-                  src="/xpresslogo.jpg"
+                  src="/xpresslogo.webp"
                   alt="Xpress Cooking Gas Logo"
                   className="h-12 w-16 object-contain"
                 />

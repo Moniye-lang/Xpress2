@@ -10,9 +10,9 @@ const SERVICES = [
 ];
 
 const FEATURED_PRODUCTS = [
-  { img: "/Thermocool.JPG", name: "Thermocool Gas Cooker", price: "₦36,000" },
-  { img: "/3kg.JPG", name: "3kg Gas Cylinder", price: "₦21,000" },
-  { img: "/Aluminium Pot Serater.JPG", name: "Aluminium Pot Seater", price: "₦3,500" },
+  { img: "/thermocool.webp", name: "Thermocool Gas Cooker", price: "₦36,000" },
+  { img: "/3kg.webp", name: "3kg Gas Cylinder", price: "₦21,000" },
+  { img: "/Aluminium Pot Serater.webp", name: "Aluminium Pot Seater", price: "₦3,500" },
 ];
 
 // 2. Optimized Animation Variants
@@ -47,7 +47,8 @@ export default function Home() {
           className="absolute inset-0 z-0"
         >
           <img 
-            src="/IMG_4548.PNG" 
+            src="/IMG_4548.webp" 
+            fetchPriority="high"
             alt="Cooking Gas Facility" 
             className="w-full h-full object-cover opacity-60"
           />

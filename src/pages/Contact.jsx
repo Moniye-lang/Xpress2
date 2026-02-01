@@ -1,6 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Phone, Mail, MapPin, CheckCircle2, AlertCircle } from "lucide-react";
+import Send from "lucide-react/dist/esm/icons/send";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import CheckCircle2 from "lucide-react/dist/esm/icons/check-circle-2";
+import AlertCircle from "lucide-react/dist/esm/icons/alert-circle";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", honeypot: "" });

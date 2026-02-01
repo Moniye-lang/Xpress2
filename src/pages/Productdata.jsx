@@ -1,7 +1,7 @@
 export const data = [
     {
         id: 2,
-        img: "/3kg.JPG",
+        img: "/3kg.webp",
         Pname: "3kg Gas Cylinder",
         
         Pdetails: "",
@@ -9,7 +9,7 @@ export const data = [
     },
     {
         id: 3,
-        img: "/Sregulator(old).JPG",
+        img: "/Sregulator(old).webp",
         Pname: "Standard regulator (old)",
     
         Pdetails: "",
@@ -17,7 +17,7 @@ export const data = [
     },
     {
         id: 4,
-        img: "/Sregulator(new).JPG",
+        img: "/Sregulator(new).webp",
         Pname: "Standard regulator (new)",
     
         Pdetails: "",
@@ -25,7 +25,7 @@ export const data = [
     },
     {
         id: 5,
-        img: "/Camping Regulator.JPG",
+        img: "/camping regulator.webp",
         Pname: "Camping regulator",
     
         Pdetails: "",
@@ -33,7 +33,7 @@ export const data = [
     },
     {
         id: 6,
-        img: "/Smeterregulator.JPG",
+        img: "/Smeterregulator.webp",
         Pname: "Standard meter regulator",
     
         Pdetails: "",
@@ -41,7 +41,7 @@ export const data = [
     },
     {
         id: 7,
-        img: "/Spark.JPG",
+        img: "/Spark.webp",
         Pname: "Spark",
     
         Pdetails: "",
@@ -49,7 +49,7 @@ export const data = [
     },
     {
         id: 8,
-        img: "/Gas Lighter.JPG",
+        img: "/Gas Lighter.webp",
         Pname: "Gas lighter",
     
         Pdetails: "",
@@ -57,14 +57,14 @@ export const data = [
     },
     {
         id: 9,
-        img: "/Hose.JPG",
+        img: "/Hose.webp",
         Pname: "Hose",
         Pdetails: "",
         Category: "Accessories"
     },
     {
         id: 10,
-        img: "/Canned Gas.JPG",
+        img: "/Canned Gas.webp",
         Pname: "Canned gas",
     
         Pdetails: "",
@@ -72,7 +72,7 @@ export const data = [
     },
     {
         id: 11,
-        img: "/Alluminiumcapburner.JPG",
+        img: "/Alluminiumcapburner.webp",
         Pname: "Aluminium cap burner",
     
         Pdetails: "",
@@ -80,7 +80,7 @@ export const data = [
     },
     {
         id: 12,
-        img: "/Aluminium Pot Serater.JPG",
+        img: "/Aluminium Pot Serater.webp",
         Pname: "Aluminium pot seater",
     
         Pdetails: "",
@@ -88,7 +88,7 @@ export const data = [
     },
     {
         id: 13,
-        img: "/cooker plate.jpg",
+        img: "/cooker plate.webp",
         Pname: "Cooker plate",
     
         Pdetails: "",
@@ -96,7 +96,7 @@ export const data = [
     },
     {
         id: 14,
-        img: "/Control.JPG",
+        img: "/Control.webp",
         Pname: "Control",
     
         Pdetails: "",
@@ -104,7 +104,7 @@ export const data = [
     },
     {
         id: 17,
-        img: "/blackPotSeater.JPG",
+        img: "/blackPotSeater.webp",
         Pname: "Black pot seater",
     
         Pdetails: "",
@@ -112,7 +112,7 @@ export const data = [
     },
     {
         id: 18,
-        img: "/Control Burner.JPG",
+        img: "/Control Burner.webp",
         Pname: "Control burner",
     
         Pdetails: "",
@@ -120,7 +120,7 @@ export const data = [
     },
     {
         id: 20,
-        img: "/industrial regulator.jpg",
+        img: "/industrial regulator.webp",
         Pname: "Industrial regulator",
     
         Pdetails: "",
@@ -128,7 +128,7 @@ export const data = [
     },
     {
         id: 21,
-        img: "/Ignition(s).JPG",
+        img: "/Ignition(s).webp",
         Pname: "Ignition (s)",
     
         Pdetails: "",
@@ -136,7 +136,7 @@ export const data = [
     },
     {
         id: 22,
-        img: "/Ignition(d).JPG",
+        img: "/Ignition(d).webp",
         Pname: "Ignition (d)",
     
         Pdetails: "",
@@ -144,7 +144,7 @@ export const data = [
     },
     {
         id: 23,
-        img: "/MoldBurner.JPG",
+        img: "/MoldBurner.webp",
         Pname: "Mold burner",
     
         Pdetails: "",
@@ -152,7 +152,7 @@ export const data = [
     },
     {
         id: 26,
-        img: "/Aluminium Burner.JPG",
+        img: "/Aluminium Burner.webp",
         Pname: "Aluminium burner",
     
         Pdetails: "",
@@ -160,7 +160,7 @@ export const data = [
     },
     {
         id: 27,
-        img: "/Stainless Burner.JPG",
+        img: "/Stainless Burner.webp",
         Pname: "Stainless burner",
     
         Pdetails: "",
@@ -168,7 +168,7 @@ export const data = [
     },
     {
         id: 28,
-        img: "/Standard Camping.JPG",
+        img: "/Standard Camping.webp",
         Pname: "Standard camping",
     
         Pdetails: "",
@@ -176,7 +176,7 @@ export const data = [
     },
     {
         id: 29,
-        img: "/Standard Valve.JPG",
+        img: "/Standard Valve.webp",
         Pname: "Standard valve",
     
         Pdetails: "",
@@ -184,7 +184,7 @@ export const data = [
     },
     {
         id: 31,
-        img: "/Ignise set.JPG",
+        img: "/Ignise set.webp",
         Pname: "Set of ignise burner",
     
         Pdetails: "",
@@ -192,7 +192,7 @@ export const data = [
     },
     {
         id: 33,
-        img: "/Flat Cap Burner.JPG",
+        img: "/Flat Cap Burner.webp",
         Pname: "Flat cap burner (b)",
     
         Pdetails: "",
@@ -200,14 +200,14 @@ export const data = [
     },
     {
         id: 34,
-        img: "/Cooker Knob(s).JPG",
+        img: "/Cooker Knob(s).webp",
         Pname: "Cooker knob (s)",
         Pdetails: "",
         Category: "Accessories"
     },
     {
         id: 35,
-        img: "/Cooker Knob(b).JPG",
+        img: "/Cooker Knob(b).webp",
         Pname: "Cooker knob (b)",
     
         Pdetails: "",
@@ -215,7 +215,7 @@ export const data = [
     },
     {
         id: 38,
-        img: "/Complete Ignise Burner.JPG",
+        img: "/Complete Ignise Burner.webp",
         Pname: "Complete ignise burner",
         
         Pdetails: "",
@@ -223,7 +223,7 @@ export const data = [
     },
     {
         id: 39,
-        img: "/Industiral Control.JPG",
+        img: "/Industiral Control.webp",
         Pname: "Industrial control",
     
         Pdetails: "",
@@ -231,7 +231,7 @@ export const data = [
     },
     {
         id: 40,
-        img: "/UTMouth.JPG",
+        img: "/UTMouth.webp",
         Pname: "UT mouth",
     
         Pdetails: "",
@@ -239,7 +239,7 @@ export const data = [
     },
     {
         id: 41,
-        img: "/T-Junction.JPG",
+        img: "/T-Junction.webp",
         Pname: "T junction",
     
         Pdetails: "",
@@ -247,7 +247,7 @@ export const data = [
     },
     {
         id: 42,
-        img: "/nildo regulator.jpeg",
+        img: "/nildo regulator.webp",
         Pname: "Nildo regulator",
     
         Pdetails: "",
@@ -255,7 +255,7 @@ export const data = [
     },
     {
         id: 43,
-        img: "/FlatCapBurner(b).JPG",
+        img: "/FlatCapBurner(b).webp",
         Pname: "Flat cap burner (m)",
     
         Pdetails: "",
@@ -263,7 +263,7 @@ export const data = [
     },
     {
         id: 44,
-        img: "/FlatCapburner(s).JPG",
+        img: "/FlatCapburner(s).webp",
         Pname: "Flat cap burner (s)",
     
         Pdetails: "",
@@ -271,7 +271,7 @@ export const data = [
     },
     {
         id: 45,
-        img: "/Thermocool.JPG",
+        img: "/thermocool.webp",
         Pname: "Thermocool stainless",
         
         Pdetails: "",
@@ -279,7 +279,7 @@ export const data = [
     },
     {
         id: 46,
-        img: "/Century.JPG",
+        img: "/century.webp",
         Pname: "Century stainless",
         
         Pdetails: "",
@@ -287,7 +287,7 @@ export const data = [
     },
     {
         id: 47,
-        img: "/Boscon.JPG",
+        img: "/Boscon.webp",
         Pname: "Boscon stainless",
         
         Pdetails: "",
@@ -295,7 +295,7 @@ export const data = [
     },
     {
         id: 48,
-        img: "/SuperSony.JPG",
+        img: "/SuperSony.webp",
         Pname: "Supersony glass cooker",
         
         Pdetails: "",
@@ -303,7 +303,7 @@ export const data = [
     },
     {
         id: 49,
-        img: "/MasterFlame.JPG",
+        img: "/MasterFlame.webp",
         Pname: "Master flame glass",
         
         Pdetails: "",
@@ -311,7 +311,7 @@ export const data = [
     },
     {
         id: 50,
-        img: "/WeNice.JPG",
+        img: "/wenice.webp",
         Pname: "Wenice glass",
         
         Pdetails: "",
@@ -319,7 +319,7 @@ export const data = [
     },
     {
         id: 51,
-        img: "/lg.jpeg",
+        img: "/lg.webp",
         Pname: "LG stainless",
         
         Pdetails: "",
@@ -327,7 +327,7 @@ export const data = [
     },
     {
         id: 52,
-        img: "/6kg.JPG",
+        img: "/6kg.webp",
         Pname: "6kg Gas Cylinder",
         
         Pdetails: "",
@@ -335,7 +335,7 @@ export const data = [
     },
     {
         id: 53,
-        img: "/12.5kg.JPG",
+        img: "/12.5kg.webp",
         Pname: "12.5kg Gas Cylinder",
         
         Pdetails: "",

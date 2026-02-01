@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShieldCheck, Truck, Zap, Headphones, MapPin, Award } from "lucide-react";
+import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
+import Truck from "lucide-react/dist/esm/icons/truck";
+import Zap from "lucide-react/dist/esm/icons/zap";
+import Headphones from "lucide-react/dist/esm/icons/headphones";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Award from "lucide-react/dist/esm/icons/award";
 
 // 1. Decoupled Data
 const SERVICES = [
@@ -69,7 +74,7 @@ export default function About() {
             className="w-full lg:w-1/2 relative"
           >
             <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
-              <img src="/CXRH8720.JPG" alt="Xpress Team" className="w-full aspect-square object-cover" />
+              <img src="/CXRH8720.webp" alt="Xpress Team" className="w-full aspect-square object-cover" />
             </div>
             {/* Abstract background shape */}
             <div className="absolute -top-10 -right-10 w-64 h-64 bg-green-200/50 rounded-full blur-3xl -z-0" />

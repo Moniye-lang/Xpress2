@@ -1,26 +1,42 @@
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Order from "./pages/Order";
-import Product from "./pages/Product";
-import Contact from "./pages/Contact";
+import { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import Nav from "./pages/Nav";
-import Footer from "./pages/Footer";
-import { Routes,Route } from "react-router-dom";
+// 1. Replace static imports with lazy imports
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Product = lazy(() => import('./pages/Product'));
+const Contact = lazy(() => import('./pages/Contact'));
 
-  export default function App(){
-    
-    return(
+// Import non-lazy components (keep these standard)
+import Navbar from './pages/Nav';
+import Footer from './pages/Footer';
+import ErrorBoundary from './pages/ErrorBoundary';
+import PageLoader from './pages/PageLoader';
+
+function App() {
+  return (
       <div>
-        <Nav></Nav>
-        <Routes>
-          <Route path='/' element={<Home/>}></Route>
-          <Route path='/About' element={<About/>}></Route>
-          <Route path='/Order' element={<Order/>}></Route>
-          <Route path='/Product' element={<Product/>}></Route>
-          <Route path='/Contact' element={<Contact/>}></Route>
-        </Routes>
-        <Footer></Footer>
+      <Navbar />
+      
+      {/* 2. Wrap Routes in Suspense */}
+      {/* The fallback is what shows for a split second while the page loads */}
+      
+        <ErrorBoundary> {/* This catches the crash */}
+    <Suspense fallback={<PageLoader/>}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Suspense>
+  </ErrorBoundary>
+    
+
+      <Footer />
       </div>
-    )
-  }
+    
+  );
+}
+
+export default App;

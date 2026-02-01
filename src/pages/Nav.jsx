@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, createContext, useContext } from "react";
 import { createPortal } from "react-dom";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import Menu from "lucide-react/dist/esm/icons/menu";
+import X from "lucide-react/dist/esm/icons/x";
 import { motion, AnimatePresence } from "framer-motion";
 import FocusLock from "react-focus-lock";
 
@@ -34,7 +35,7 @@ export default function Nav() {
 
   return (
     <NavContext.Provider value={{ isOpen, toggle, close }}>
-      <header className="sticky top-0 z-40 w-full bg-green-800 text-white shadow-md">
+      <header className="sticky top-0 z-40 w-full bg-green-800 text-white shadow-">
         <div className="max-w-7xl mx-auto flex h-20 items-center justify-between px-4 sm:px-6">
           <Brand />
           <DesktopLinks />
@@ -53,7 +54,7 @@ function Brand() {
   return (
     <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-90 focus-visible:outline-2 outline-offset-4 outline-white rounded-md">
       <img 
-        src="/xpresslogo.jpg" 
+        src="/xpresslogo.webp" 
         className="h-12 w-12 rounded-full object-cover border-2 border-green-700" 
         alt="Xpress - Back to Home" 
       />
@@ -124,7 +125,7 @@ function MobileSidebar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 z-[101] h-full w-[min(85vw,400px)] bg-green-900 shadow-2xl"
+            className="fixed right-0 top-0 z-[101] h-full w-[min(85vw,400px)] bg-green-900 shado"
           >
             <FocusLock returnFocus={true}>
               <div className="flex flex-col h-full">
