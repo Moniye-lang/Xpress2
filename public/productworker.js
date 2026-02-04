@@ -1,12 +1,12 @@
 // public/productWorker.js
-self.onmessage = function(e) {
+self.onmessage = (e) => {
   const { products, search, category } = e.data;
-  
-  const results = products.filter(item => {
-    const matchesCat = category === "All" || item.Category === category;
+
+  const filtered = products.filter((item) => {
+    const matchesCategory = category === "All" || item.Category === category;
     const matchesSearch = item.Pname.toLowerCase().includes(search.toLowerCase());
-    return matchesCat && matchesSearch;
+    return matchesCategory && matchesSearch;
   });
 
-  self.postMessage(results);
+  self.postMessage(filtered);
 };

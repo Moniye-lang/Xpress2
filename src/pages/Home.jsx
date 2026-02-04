@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// 1. Externalize Data for clean component body
+// 1. Externalized Data
 const SERVICES = [
   { title: "Bulk Supply", text: "Liquified Petroleum Gas delivered throughout SouthWest Nigeria at competitive industrial rates." },
   { title: "Accessories", text: "Durable, safety-certified gas accessories. From regulators to industrial hoses." },
@@ -10,9 +10,9 @@ const SERVICES = [
 ];
 
 const FEATURED_PRODUCTS = [
-  { img: "/thermocool.webp", name: "Thermocool Gas Cooker", price: "₦36,000" },
-  { img: "/3kg.webp", name: "3kg Gas Cylinder", price: "₦21,000" },
-  { img: "/Aluminium Pot Serater.webp", name: "Aluminium Pot Seater", price: "₦3,500" },
+  { img: "/Thermocool.webp", name: "Thermocool Gas Cooker", price: "36,000" },
+  { img: "/3kg.webp", name: "3kg Gas Cylinder", price: "21,000" },
+  { img: "/Aluminium Pot Serater.webp", name: "Aluminium Pot Seater", price: "3,500" },
 ];
 
 // 2. Optimized Animation Variants
@@ -30,7 +30,6 @@ const itemReveal = {
 };
 
 export default function Home() {
-  // Parallax Effect for Hero
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
 
@@ -40,7 +39,7 @@ export default function Home() {
 
   return (
     <main className="overflow-x-hidden">
-      {/* HERO SECTION - Optimized with Parallax & Semantic Tags */}
+      {/* HERO SECTION - Critical for LCP Score */}
       <section className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-green-950">
         <motion.div 
           style={{ y: y1 }}
@@ -48,9 +47,12 @@ export default function Home() {
         >
           <img 
             src="/IMG_4548.webp" 
-            fetchPriority="high"
+            fetchPriority="high" // High priority for LCP
             alt="Cooking Gas Facility" 
+            width="1920" // Explicit dimensions prevent layout shift
+            height="1080"
             className="w-full h-full object-cover opacity-60"
+            // Important: No loading="lazy" on hero images!
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-green-950/80" />
         </motion.div>
@@ -80,14 +82,18 @@ export default function Home() {
             transition={{ delay: 0.6 }}
             className="mt-10 flex gap-4"
           >
-            <Link to="/About" className="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 shadow-xl">
+            <Link 
+              to="/About" 
+              aria-label="Learn more about our services"
+              className="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 shadow-xl"
+            >
               More About Us
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* SERVICES SECTION - Better Grid Logic */}
+      {/* SERVICES SECTION */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <header className="text-center mb-20">
@@ -119,7 +125,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRODUCTS SECTION - Commerce Focus */}
+      {/* PRODUCTS SECTION */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -143,7 +149,7 @@ export default function Home() {
   );
 }
 
-// 3. Extracted Sub-component for better performance
+// 3. Extracted Sub-component with CLS Fixes
 function ProductCard({ product, index }) {
   return (
     <motion.div
@@ -154,14 +160,17 @@ function ProductCard({ product, index }) {
       custom={index}
       className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-100"
     >
-      <div className="relative h-72 overflow-hidden">
+      {/* 1. ASPECT RATIO WRAPPER: Fixes the 0.303 CLS shift */}
+      <div className="relative aspect-square overflow-hidden bg-gray-100">
         <img
           src={product.img}
           alt={product.name}
-          loading="lazy" // Critical for SEO/Performance
+          width="500" // 2. EXPLICIT WIDTH/HEIGHT: Key for Lighthouse
+          height="500"
+          loading="lazy" 
+          decoding="async"
           className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
         />
-        
       </div>
 
       <div className="p-8">
@@ -170,6 +179,7 @@ function ProductCard({ product, index }) {
         </h3>
         <Link
           to="/Product"
+          aria-label={`View details for ${product.name}`} // 3. DISCERNIBLE NAME: Fixes Accessibility score
           className="mt-6 w-full py-3 px-6 rounded-xl border-2 border-green-800 text-green-800 font-bold inline-block text-center hover:bg-green-800 hover:text-white transition-all active:scale-95"
         >
           View Product

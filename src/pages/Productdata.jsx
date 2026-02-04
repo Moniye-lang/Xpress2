@@ -25,7 +25,7 @@ export const data = [
     },
     {
         id: 5,
-        img: "/camping regulator.webp",
+        img: "/Camping Regulator.webp",
         Pname: "Camping regulator",
     
         Pdetails: "",
@@ -88,7 +88,7 @@ export const data = [
     },
     {
         id: 13,
-        img: "/cooker plate.webp",
+        img: "/Cooker Plate (2).webp",
         Pname: "Cooker plate",
     
         Pdetails: "",
@@ -96,7 +96,7 @@ export const data = [
     },
     {
         id: 14,
-        img: "/Control.webp",
+        img: "/Control (1).webp",
         Pname: "Control",
     
         Pdetails: "",
@@ -120,7 +120,7 @@ export const data = [
     },
     {
         id: 20,
-        img: "/industrial regulator.webp",
+        img: "/industrial regulator (1).webp",
         Pname: "Industrial regulator",
     
         Pdetails: "",
@@ -247,7 +247,7 @@ export const data = [
     },
     {
         id: 42,
-        img: "/nildo regulator.webp",
+        img: "/Nildo Regulator.webp",
         Pname: "Nildo regulator",
     
         Pdetails: "",
@@ -271,7 +271,7 @@ export const data = [
     },
     {
         id: 45,
-        img: "/thermocool.webp",
+        img: "/Thermocool.webp",
         Pname: "Thermocool stainless",
         
         Pdetails: "",
@@ -279,7 +279,7 @@ export const data = [
     },
     {
         id: 46,
-        img: "/century.webp",
+        img: "/Century.webp",
         Pname: "Century stainless",
         
         Pdetails: "",
@@ -287,7 +287,7 @@ export const data = [
     },
     {
         id: 47,
-        img: "/Boscon.webp",
+        img: "/Boscon (1).webp",
         Pname: "Boscon stainless",
         
         Pdetails: "",
@@ -295,7 +295,7 @@ export const data = [
     },
     {
         id: 48,
-        img: "/SuperSony.webp",
+        img: "/SuperSony (1).webp",
         Pname: "Supersony glass cooker",
         
         Pdetails: "",
@@ -311,7 +311,7 @@ export const data = [
     },
     {
         id: 50,
-        img: "/wenice.webp",
+        img: "/WeNice.webp",
         Pname: "Wenice glass",
         
         Pdetails: "",
@@ -319,7 +319,7 @@ export const data = [
     },
     {
         id: 51,
-        img: "/lg.webp",
+        img: "/lg (1).webp",
         Pname: "LG stainless",
         
         Pdetails: "",
@@ -335,7 +335,7 @@ export const data = [
     },
     {
         id: 53,
-        img: "/12.5kg.webp",
+        img: "/12.5kg (1).webp",
         Pname: "12.5kg Gas Cylinder",
         
         Pdetails: "",

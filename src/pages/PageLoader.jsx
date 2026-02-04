@@ -14,7 +14,7 @@ const PageLoader = () => (
       transition={{ repeat: Infinity, duration: 1.5, repeatType: "reverse" }}
       className="mt-4 text-green-800 font-medium tracking-widest"
     >
-      OPTIMIZING XPRESS GAS...
+      LOADING XPRESS GAS...
     </motion.p>
   </div>
 );
