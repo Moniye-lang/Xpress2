@@ -1,12 +1,12 @@
 // src/store/useProductStore.js
 import { create } from 'zustand';
-import { data } from "../pages/Productdata"
+import { data } from "../pages/Productdata";
 
-// Initialize worker from public folder
-const worker = new Worker('/productWorker.js');
+// This format ensures the worker is found on live servers
+const worker = new Worker(new URL('/productWorker.js', import.meta.url));
 
 export const useProductStore = create((set) => ({
-  filteredProducts: [],
+  filteredProducts: data, // Initialize with data so it's not empty on first load
   isProcessing: false,
 
   filterProducts: (search, category) => {
