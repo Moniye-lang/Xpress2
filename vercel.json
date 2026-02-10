@@ -10,10 +10,12 @@
       ]
     }
   ],
+  
   "rewrites": [
     {
-      "source": "/((?!api/|static/|.*\\..*).*)",
+      "source": "/((?!assets/|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
-}
+
+  }
