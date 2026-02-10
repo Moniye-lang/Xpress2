@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const SERVICES = [
   { title: "Bulk Supply", text: "Liquified Petroleum Gas delivered throughout SouthWest Nigeria at competitive industrial rates." },
   { title: "Accessories", text: "Durable, safety-certified gas accessories. From regulators to industrial hoses." },
-  { title: "Consultancy", text: "Expert guidance on plant construction, logistics, and safety installations." },
+  { title: "Consultancy", text: "Expert guidance on plant construction, logrun distics, and safety installations." },
 ];
 
 const FEATURED_PRODUCTS = [
