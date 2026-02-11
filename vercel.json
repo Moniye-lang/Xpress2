@@ -12,11 +12,7 @@
   ],
   "rewrites": [
     {
-      "source": "/productWorker.js",
-      "destination": "/productWorker.js"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!.*\\.).*)",
       "destination": "/index.html"
     }
   ]
