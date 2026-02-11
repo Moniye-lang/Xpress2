@@ -16,57 +16,29 @@ export default function Product() {
     // 1. Mark as processing (UI can show a skeleton/spinner)
     startProcessing();
 
-    let worker = null;
+    // 2. Initialize Worker from public folder
+    const worker = new Worker('/productWorker.js');
 
-    try {
-      // 2. Initialize Worker from public folder
-      worker = new Worker('/productWorker.js');
-
-      // 3. Set up Debounce (wait 300ms after last keystroke before filtering)
-      const timeoutId = setTimeout(() => {
-        if (worker) {
-          worker.postMessage({
-            products: allProducts,
-            search: searchInput,
-            category: activeCategory
-          });
-        }
-      }, 300);
-
-      // 4. Handle result from Worker
-      worker.onmessage = (e) => {
-        setFilteredItems(e.data); // Updates Zustand store
-        if (worker) worker.terminate();
-      };
-
-      // 5. Handle worker errors
-      worker.onerror = (err) => {
-        console.error('Worker error:', err);
-        // Fallback: Filter on main thread
-        const filtered = allProducts.filter((item) => {
-          const matchesCategory = activeCategory === "All" || item.Category === activeCategory;
-          const matchesSearch = !searchInput || item.Pname.toLowerCase().includes(searchInput.toLowerCase());
-          return matchesCategory && matchesSearch;
-        });
-        setFilteredItems(filtered);
-        if (worker) worker.terminate();
-      };
-
-      // Cleanup: Terminate worker if user types again or leaves page
-      return () => {
-        if (worker) worker.terminate();
-        clearTimeout(timeoutId);
-      };
-    } catch (error) {
-      console.error('Failed to create worker:', error);
-      // Fallback: Filter on main thread
-      const filtered = allProducts.filter((item) => {
-        const matchesCategory = activeCategory === "All" || item.Category === activeCategory;
-        const matchesSearch = !searchInput || item.Pname.toLowerCase().includes(searchInput.toLowerCase());
-        return matchesCategory && matchesSearch;
+    // 3. Set up Debounce (wait 300ms after last keystroke before filtering)
+    const timeoutId = setTimeout(() => {
+      worker.postMessage({
+        products: allProducts,
+        search: searchInput,
+        category: activeCategory
       });
-      setFilteredItems(filtered);
-    }
+    }, 300);
+
+    // 4. Handle result from Worker
+    worker.onmessage = (e) => {
+      setFilteredItems(e.data); // Updates Zustand store
+      worker.terminate();
+    };
+
+    // Cleanup: Terminate worker if user types again or leaves page
+    return () => {
+      worker.terminate();
+      clearTimeout(timeoutId);
+    };
   }, [searchInput, activeCategory, setFilteredItems, startProcessing]);
 
   return (
