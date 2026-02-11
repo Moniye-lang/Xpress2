@@ -2,22 +2,30 @@
 import { create } from 'zustand';
 import { data } from "../pages/Productdata";
 
-// By using a string, Vite won't try to "bundle" it from the src folder
-// In production, this file will exist at the domain root.
-const worker = new Worker('/productWorker.js');
-
 export const useProductStore = create((set) => {
-  // Setup listener once
-  worker.onmessage = (e) => {
-    set({ filteredProducts: e.data, isProcessing: false });
-  };
+  let worker = null;
+
+  if (typeof window !== "undefined") {
+    worker = new Worker("/productWorker.js");
+
+    worker.onmessage = (e) => {
+      set({ filteredProducts: e.data, isProcessing: false });
+    };
+
+    worker.onerror = (err) => {
+      console.error("Worker error:", err);
+    };
+  }
 
   return {
-    filteredProducts: data,
+    filteredProducts: [],
     isProcessing: false,
+
     filterProducts: (search, category) => {
+      if (!worker) return;
+
       set({ isProcessing: true });
       worker.postMessage({ products: data, search, category });
-    },
+    }
   };
 });
