@@ -1,7 +1,6 @@
 // src/store/useProductStore.js
 import { create } from 'zustand';
 import { data } from "../pages/Productdata";
-import 
 
 export const useProductStore = create((set) => {
   let worker = null;
