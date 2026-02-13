@@ -1,20 +1,22 @@
 // src/store/useProductStore.js
-import { create } from 'zustand';
+import { create } from "zustand";
 import { data } from "../pages/Productdata";
-import 
 
 export const useProductStore = create((set) => {
   let worker = null;
 
   if (typeof window !== "undefined") {
-    worker = new Worker("/productWorker.js");
+    // Use Vite's URL import syntax
+    worker = new Worker(
+      new URL("../workers/productWorker.js", import.meta.url)
+    );
 
     worker.onmessage = (e) => {
       set({ filteredProducts: e.data, isProcessing: false });
     };
 
     worker.onerror = (err) => {
-      console.error("Worker error:", err);
+      console.error("Worker error:", err.message);
     };
   }
 
@@ -27,6 +29,6 @@ export const useProductStore = create((set) => {
 
       set({ isProcessing: true });
       worker.postMessage({ products: data, search, category });
-    }
+    },
   };
 });
