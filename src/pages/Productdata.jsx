@@ -25,7 +25,7 @@ export const data = [
     },
     {
         id: 5,
-        img: "/Camping Regulator.webp",
+        img: "/camping-regulator.webp",
         Pname: "Camping regulator",
     
         Pdetails: "",

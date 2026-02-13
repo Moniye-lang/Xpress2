@@ -132,18 +132,21 @@ function ProductCard({ item }) {
   return (
     <article className="group bg-white rounded-[2.5rem] border border-gray-100 p-4 hover:shadow-2xl transition-all duration-500">
       {/* ASPECT RATIO WRAPPER - FIXES CLS */}
-      <div className="relative aspect-square rounded-[2rem] overflow-hidden bg-gray-100">
-        <img
-          src={item.img}
-          alt={item.Pname}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase text-green-900">
+    
+<div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gray-100"> 
+  <img 
+    src={item.img} 
+    alt={item.name}
+    width="551" // Add these explicit attributes!
+    height="413"
+    loading="lazy"
+    decoding="async"
+    className="w-full h-full object-cover"
+  />
+  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase text-green-900">
           {item.Category}
         </div>
-      </div>
+</div>
       <div className="p-6 text-center">
         <h2 className="text-xl font-black text-gray-900">{item.Pname}</h2>
         <div className="w-8 h-1 bg-green-200 mx-auto rounded-full mt-2" />
