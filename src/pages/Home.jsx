@@ -10,7 +10,7 @@ const SERVICES = [
 ];
 
 const FEATURED_PRODUCTS = [
-  { img: "/Thermocool.webp", name: "Thermocool Gas Cooker", price: "36,000" },
+  { img: "/thermocool.webp", name: "Thermocool Gas Cooker", price: "36,000" },
   { img: "/3kg.webp", name: "3kg Gas Cylinder", price: "21,000" },
   { img: "/Aluminium Pot Serater.webp", name: "Aluminium Pot Seater", price: "3,500" },
 ];
