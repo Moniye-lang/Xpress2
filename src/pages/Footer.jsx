@@ -78,11 +78,11 @@ export default function Footer() {
               />
               <ContactItem 
                 icon={<Phone size={18} />} 
-                text="0908 651 0324" 
+                text="0908 651 0324,0811 999 8995" 
               />
               <ContactItem 
                 icon={<Mail size={18} />} 
-                text="support@xpressgas.com" 
+                text="xpresscookinggas@gmail.com" 
               />
             </ul>
           </motion.div>
@@ -91,7 +91,7 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="lg:col-span-1 space-y-6">
             <div className="bg-green-900/40 p-6 rounded-3xl border border-green-800/50">
               <h3 className="text-lg font-bold mb-2">Need a Refill?</h3>
-              <p className="text-green-200/60 text-sm mb-4">Visit us at Olounda,Akobo,Generak Gas,Ibadan.</p>
+              <p className="text-green-200/60 text-sm mb-4">Visit us at Olounda,Akobo,General Gas,Ibadan.</p>
             
             </div>
           </motion.div>

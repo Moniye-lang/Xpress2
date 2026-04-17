@@ -65,8 +65,8 @@ export default function Contact() {
           </div>
 
           <div className="space-y-6">
-            <ContactMethod icon={<Phone className="text-green-600"/>} title="Phone" detail="+234 (0) 800 XPRESS" />
-            <ContactMethod icon={<Mail className="text-green-600"/>} title="Email" detail="info@xpressgas.com.ng" />
+            <ContactMethod icon={<Phone className="text-green-600"/>} title="Phone" detail="0811 999 8995" />
+            <ContactMethod icon={<Mail className="text-green-600"/>} title="Email" detail="xpresscookinggas@gmail.com" />
             <ContactMethod icon={<MapPin className="text-green-600"/>} title="Location" detail="Ibadan, Oyo State, Nigeria" />
           </div>
         </motion.div>
