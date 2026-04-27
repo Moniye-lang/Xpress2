@@ -13,6 +13,7 @@ const useNav = () => useContext(NavContext);
 const NAV_LINKS = [
   { name: "Home", path: "/" },
   { name: "About", path: "/About" },
+  { name: "Our Services", path: "/services" },
   { name: "Product", path: "/Product" },
   { name: "Contact Us", path: "/Contact" },
 ];
