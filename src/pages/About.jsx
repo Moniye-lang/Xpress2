@@ -17,7 +17,7 @@ const SERVICES = [
 ];
 
 const STATS = [
-  { label: "Years Experience", value: "8+", icon: <Award className="text-green-600" /> },
+  { label: "Years Experience", value: "10+", icon: <Award className="text-green-600" /> },
   { label: "Happy Customers", value: "5k+", icon: <ShieldCheck className="text-green-600" /> },
   { label: "Regions Covered", value: "SouthWest", icon: <MapPin className="text-green-600" /> },
 ];
