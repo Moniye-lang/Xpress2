@@ -80,15 +80,15 @@ export default function Services() {
             transition={{ duration: 0.7 }}
             className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight uppercase tracking-tight mb-6"
           >
-            Best <span className="text-red-500">Bulk Gas in Oyo</span>
+            Best <span className="text-red-600">Bulk Gas in Oyo</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.7 }}
-            className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto font-medium"
+            className="text-xl md:text-2xl text-green-200 max-w-3xl mx-auto font-medium"
           >
-            Fast & Reliable Tank Delivery directly to your home or business. We power your kitchen and operations with premium liquified petroleum gas.
+            Fast &amp; Reliable Tank Delivery directly to your home or business. We power your kitchen and operations with premium liquified petroleum gas.
           </motion.p>
         </div>
       </section>
@@ -96,6 +96,18 @@ export default function Services() {
       {/* Main Services List */}
       <section className="py-24">
         <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">What We Offer</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Trusted by homes and businesses across Oyo State for quality gas supply and expertise.</p>
+            <div className="h-1 w-16 bg-green-700 mx-auto mt-4 rounded-full" />
+          </motion.div>
+
           <motion.div 
             variants={staggerContainer}
             initial="hidden"
@@ -157,8 +169,8 @@ export default function Services() {
             variants={fadeUp}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">See Our Operations</h2>
-            <p className="text-gray-500 text-lg">A glimpse into how we deliver bulk gas safely across Oyo State.</p>
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">See Our Operations</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">A glimpse into how we deliver bulk gas safely across Oyo State.</p>
             <div className="h-1 w-16 bg-green-700 mx-auto mt-4 rounded-full" />
           </motion.div>
 
@@ -211,8 +223,8 @@ export default function Services() {
           variants={fadeUp}
           className="container mx-auto max-w-4xl bg-white rounded-3xl p-12 shadow-2xl"
         >
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6">Need Bulk Gas Delivery Today?</h2>
-          <p className="text-xl text-gray-600 mb-10">
+          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">Need Bulk Gas Delivery Today?</h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-10">
             Join hundreds of satisfied homes and businesses across Oyo State who trust Xpress for their energy needs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
