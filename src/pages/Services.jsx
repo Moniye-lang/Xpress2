@@ -88,7 +88,8 @@ export default function Services() {
             transition={{ delay: 0.3, duration: 0.7 }}
             className="text-xl md:text-2xl text-green-200 max-w-3xl mx-auto font-medium"
           >
-            Fast &amp; Reliable Tank Delivery directly to your home or business. We power your kitchen and operations with premium liquified petroleum gas.
+
+            Fast and Reliable bulk gas delivery to your gas plants, skid and companies at any location in Oyo state. We offer Liquidified Petroleum Gas in bulk supply plans that would best suit the growth of your business.
           </motion.p>
         </div>
       </section>
