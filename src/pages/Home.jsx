@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
+import SEOHead from "../components/SEOHead";
 
 // 1. Externalized Data
 const SERVICES = [
@@ -39,6 +40,26 @@ export default function Home() {
 
   return (
     <main className="overflow-x-hidden">
+      <SEOHead 
+        title="Xpress Cooking Gas — Bulk Gas Delivery in Oyo & Ibadan" 
+        description="Xpress Cooking Gas is the #1 provider of bulk LPG gas delivery in Oyo State and Ibadan. Fast, safe, and affordable cooking gas for homes, restaurants, and businesses."
+        canonical="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Xpress Cooking Gas",
+          "image": "https://xpresscookinggas.com/IMG_4548.webp",
+          "@id": "https://xpresscookinggas.com",
+          "url": "https://xpresscookinggas.com",
+          "telephone": "08119998995",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ibadan",
+            "addressRegion": "Oyo State",
+            "addressCountry": "NG"
+          }
+        }}
+      />
       {/* HERO SECTION - Critical for LCP Score */}
       <section className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-green-950">
         <motion.div 

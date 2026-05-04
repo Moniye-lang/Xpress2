@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Truck, Flame, ShieldCheck } from "lucide-react";
+import SEOHead from "../components/SEOHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -41,29 +42,18 @@ const SERVICES = [
 ];
 
 export default function Services() {
-  // SEO Optimization
   useEffect(() => {
-    document.title = "Bulk Gas in Oyo - Fast & Reliable Tank Delivery | Xpress";
-    
-    // Check if meta description exists, else create it
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.name = "description";
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.content = "The #1 provider of Bulk Gas in Oyo. Fast, accessible, and reliable tank gas delivery services for your home and business.";
-
     window.scrollTo(0, 0);
-
-    return () => {
-      // Optional: Cleanup if navigating away, but usually fine to leave it or reset to default
-      document.title = "Xpress - Cooking Gas";
-    };
   }, []);
 
   return (
     <main className="overflow-x-hidden bg-gray-50 min-h-screen">
+      <SEOHead 
+        title="Our Services | Xpress Cooking Gas" 
+        description="We offer Commercial Bulk Gas Delivery, Gas Accessories & Equipment, and Gas Plant Consultancy in Oyo State and Ibadan."
+        canonical="/services"
+        keywords="commercial bulk gas delivery, gas accessories, gas plant consultancy, LPG supply, Oyo State, Ibadan"
+      />
       {/* SEO Optimized Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-green-950 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">

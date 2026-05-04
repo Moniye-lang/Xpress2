@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProductStore } from "../store/useProductStore";
+import SEOHead from "../components/SEOHead";
 
 // Optimized path-based imports
 import Search from "lucide-react/dist/esm/icons/search";
@@ -44,6 +45,12 @@ export default function Product() {
 
   return (
     <main className="min-h-screen bg-gray-50 pb-20">
+      <SEOHead 
+        title="Products & Accessories | Xpress Cooking Gas" 
+        description="Browse our premium gas gear, cylinders, burners, cookers, and accessories. High-quality and safety-certified LPG equipment."
+        canonical="/product"
+        keywords="gas cylinders, cooking gas burners, LPG accessories, gas cookers, buy cooking gas equipment Nigeria"
+      />
       {/* Hero Header */}
       <section className="bg-green-900 pt-32 pb-20 px-6 text-center text-white relative overflow-hidden">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>

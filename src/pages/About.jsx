@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
+import SEOHead from "../components/SEOHead";
 import Truck from "lucide-react/dist/esm/icons/truck";
 import Zap from "lucide-react/dist/esm/icons/zap";
 import Headphones from "lucide-react/dist/esm/icons/headphones";
@@ -40,6 +41,12 @@ export default function About() {
 
   return (
     <div className="bg-white text-gray-900 selection:bg-green-100">
+      <SEOHead 
+        title="About Us | Xpress Cooking Gas" 
+        description="Based in Ibadan, Xpress Cooking Gas is redefining energy reliability. We deliver safety, convenience, and peace of mind with our LPG supply and delivery services."
+        canonical="/about"
+        keywords="about Xpress cooking gas, LPG supply Ibadan, bulk gas delivery Oyo State, cooking gas company Nigeria"
+      />
       {/* HERO SECTION */}
       <section className="relative pt-20 pb-32 overflow-hidden bg-gradient-to-b from-green-50/50 to-white">
         <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">

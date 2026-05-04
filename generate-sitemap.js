@@ -19,11 +19,12 @@ async function generateSitemap() {
   sitemap.pipe(writeStream);
 
   // Add pages
-  sitemap.write({ url: '/', changefreq: 'daily', priority: 1.0 });
-  sitemap.write({ url: '/About', changefreq: 'monthly', priority: 0.7 });
-  sitemap.write({ url: '/Product', changefreq: 'monthly', priority: 0.7 });
-  sitemap.write({ url: '/Services', changefreq: 'weekly', priority: 0.9 });
-  sitemap.write({ url: '/Contact', changefreq: 'monthly', priority: 0.7 });
+  const today = new Date().toISOString();
+  sitemap.write({ url: '/', changefreq: 'daily', priority: 1.0, lastmod: today });
+  sitemap.write({ url: '/about', changefreq: 'monthly', priority: 0.7, lastmod: today });
+  sitemap.write({ url: '/product', changefreq: 'monthly', priority: 0.7, lastmod: today });
+  sitemap.write({ url: '/services', changefreq: 'weekly', priority: 0.9, lastmod: today });
+  sitemap.write({ url: '/contact', changefreq: 'monthly', priority: 0.7, lastmod: today });
 
   sitemap.end();
 

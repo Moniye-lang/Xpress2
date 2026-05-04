@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Send from "lucide-react/dist/esm/icons/send";
 import Phone from "lucide-react/dist/esm/icons/phone";
+import SEOHead from "../components/SEOHead";
 import Mail from "lucide-react/dist/esm/icons/mail";
 import MapPin from "lucide-react/dist/esm/icons/map-pin";
 import CheckCircle2 from "lucide-react/dist/esm/icons/check-circle-2";
@@ -51,6 +52,12 @@ export default function Contact() {
 
   return (
     <main className="min-h-screen bg-slate-50 pt-32 pb-20 px-6">
+      <SEOHead 
+        title="Contact Us | Xpress Cooking Gas" 
+        description="Get in touch with Xpress Cooking Gas for bulk delivery, plant installation, or any other inquiries. Call us at 0811 999 8995 or visit us in Ibadan, Oyo State."
+        canonical="/contact"
+        keywords="contact Xpress cooking gas, cooking gas delivery contact, LPG supplier phone number, Ibadan gas plant"
+      />
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
         
         {/* 1. LEFT SIDE: CONTACT INFO */}
