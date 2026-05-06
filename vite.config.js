@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import prerender from '@prerenderer/rollup-plugin';
-import puppeteer from '@prerenderer/renderer-puppeteer';
+import JSDOMRenderer from '@prerenderer/renderer-jsdom';
 import path from 'path';
 
 export default defineConfig({
@@ -23,7 +23,7 @@ export default defineConfig({
     }),
     prerender({
       routes: ['/', '/about', '/services', '/product', '/contact'],
-      renderer: new puppeteer({
+      renderer: new JSDOMRenderer({
         renderAfterTime: 5000,
       }),
       staticDir: path.join(__dirname, 'dist'),
