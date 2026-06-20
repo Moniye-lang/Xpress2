@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet-async";
  */
 export default function SEOHead({
   title = "Xpress Cooking Gas — Bulk Gas Delivery in Oyo & Ibadan",
-  description = "Xpress Cooking Gas is the #1 provider of bulk LPG gas delivery in Oyo State and Ibadan. Fast, safe, and affordable cooking gas for homes, restaurants, and businesses.",
+  description = "Xpress Cooking Gas is the #1 provider of bulk LPG gas delivery in Oyo State and Ibadan. Fast, safe, and affordable cooking gas for restaurants, hotels, and industrial businesses.",
   keywords = "bulk gas Oyo, cooking gas Ibadan, LPG delivery Oyo State, gas supply Ibadan, Xpress cooking gas, bulk gas delivery Nigeria",
   canonical,
   ogImage = "https://xpresscookinggas.com/IMG_4548.webp",

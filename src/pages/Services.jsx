@@ -95,7 +95,7 @@ export default function Services() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">What We Offer</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Trusted by homes and businesses across Oyo State for quality gas supply and expertise.</p>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Trusted by hotels and businesses across Oyo State for quality bulk gas supply and expertise.</p>
             <div className="h-1 w-16 bg-green-700 mx-auto mt-4 rounded-full" />
           </motion.div>
 
@@ -216,7 +216,7 @@ export default function Services() {
         >
           <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">Need Bulk Gas Delivery Today?</h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-10">
-            Join hundreds of satisfied homes and businesses across Oyo State who trust Xpress for their energy needs.
+            Join hundreds of satisfied commercial clients and businesses across Oyo State who trust Xpress for their energy needs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 

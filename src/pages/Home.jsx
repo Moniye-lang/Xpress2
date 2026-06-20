@@ -42,7 +42,7 @@ export default function Home() {
     <main className="overflow-x-hidden">
       <SEOHead 
         title="Xpress Cooking Gas — Bulk Gas Delivery in Oyo & Ibadan" 
-        description="Xpress Cooking Gas is the #1 provider of bulk LPG gas delivery in Oyo State and Ibadan. Fast, safe, and affordable cooking gas for homes, restaurants, and businesses."
+        description="Xpress Cooking Gas is the #1 provider of bulk LPG gas delivery in Oyo State and Ibadan. Fast, safe, and affordable cooking gas for restaurants, hotels, and industrial businesses."
         canonical="/"
         jsonLd={{
           "@context": "https://schema.org",

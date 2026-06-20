@@ -58,7 +58,7 @@ export default function About() {
               Est. 2016
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tight">
-              Fueling Homes with <span className="text-green-700">Precision.</span>
+              Fueling Businesses with <span className="text-green-700">Precision.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="text-xl text-gray-600 leading-relaxed max-w-lg">
               Based in Ibadan, Xpress Cooking Gas is redefining energy reliability. We don't just deliver gas; we deliver safety, convenience, and peace of mind.

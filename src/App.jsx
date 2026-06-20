@@ -13,6 +13,7 @@ import Navbar from './pages/Nav';
 import Footer from './pages/Footer';
 import ErrorBoundary from './pages/ErrorBoundary';
 import PageLoader from './pages/PageLoader';
+import ChatWidget from './components/ChatWidget';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
     
 
       <Footer />
+      <ChatWidget />
       </div>
     
   );
